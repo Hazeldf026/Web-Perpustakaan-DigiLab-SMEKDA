@@ -16,7 +16,7 @@ import Request from "../pages/admin/request/Request";
 import DataTransaksi from "../pages/admin/transactions/DataTransaksi";
 import UserTransaksi from "../pages/user/Dashboard/UserTransaksi";
 import RegisterUser from "../pages/auth/RegisterUser";
-import PendingApproval from "../pages/auth/PendingApproval";
+import WaitingApproval from "../pages/auth/WaitingApproval";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import WaitingReset from "../pages/auth/WaitingReset";
 import GenreBooks from "../pages/user/Dashboard/GenreBooks";
@@ -30,7 +30,7 @@ const AppRoutes = () => {
             <Route path="/login-user" element={<LoginUser />} />
             <Route path="/login-admin" element={<LoginAdmin />} />
             <Route path="/register-user" element={<RegisterUser />} />
-            <Route path="/pending-approval" element={<PendingApproval />} />
+            <Route path="/waiting-approval/:identifier" element={<WaitingApproval />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/waiting-reset/:identifier" element={<WaitingReset />} />
 

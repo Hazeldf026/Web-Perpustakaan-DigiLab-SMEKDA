@@ -21,7 +21,7 @@ const RegisterUser = () => {
 
             const data = await response.json();
             if (response.ok) {
-                navigate('/pending-approval');
+                navigate(`/waiting-approval/${formData.identifier}`);
             } else {
                 alert(data.message);
             }

@@ -57,6 +57,23 @@ try {
 }
 };
 
+export const checkRegistrationStatus = async (req, res) => {
+    try {
+        const { identifier } = req.params;
+        const user = await prisma.user.findUnique({
+            where: { identifier },
+            select: { isApproved: true }
+        });
+
+        if (!user) return res.status(404).json({ message: "User tidak ditemukan" });
+
+        // Jika isApproved true, berarti sudah di-ACC
+        res.status(200).json({ approved: user.isApproved });
+    } catch (error) {
+        res.status(500).json({ message: "Error", error: error.message });
+    }
+};
+
 export const login = async (req, res) => {
 try {
     const { email, password } = req.body;
