@@ -70,10 +70,10 @@ const WaitingApproval = () => {
                             </svg>
                         </div>
                         <h2 className="text-3xl font-black text-gray-800 mb-4">Akun Aktif!</h2>
-                        <p className="text-gray-500 text-sm mb-8">Selamat! Admin telah menyetujui pendaftaranmu di DigiLab SMEKDA. Sekarang kamu bisa masuk ke perpustakaan digital.</p>
+                        <p className="text-gray-500 text-sm mb-8">Selamat! Admin telah menyetujui pendaftaranmu di DigiLib SMEKDA. Sekarang kamu bisa masuk ke perpustakaan digital.</p>
                         <button 
                             onClick={() => navigate('/login-user')}
-                            className="w-full bg-[#4e8a68] text-white font-bold py-4 rounded-full shadow-lg hover:bg-green-800 transition transform hover:-translate-y-1"
+                            className="w-full bg-green-800 text-white font-bold py-4 rounded-full shadow-lg hover:bg-green-900 transition transform hover:-translate-y-1"
                         >
                             Masuk Sekarang
                         </button>

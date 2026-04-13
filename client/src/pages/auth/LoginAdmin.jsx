@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from 'lucide-react';
 import LogoJudul from "../../assets/LogoJudul.png"
 import Administration from "../../assets/administration.jpg"
 
@@ -11,6 +12,7 @@ const LoginAdmin = () => {
     
         const [error, setError] = useState('');
         const [isLoading, setIsLoading] = useState(false);
+        const [showPassword, setShowPassword] = useState(false);
     
         const handleLogin = async (e) => {
             e.preventDefault();
@@ -53,6 +55,10 @@ const LoginAdmin = () => {
             }
         };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <div className="flex h-screen w-full bg-white font-sans">
 
@@ -71,58 +77,69 @@ const LoginAdmin = () => {
                 {/* tombol back */}
                 <button
                     onClick={() => navigate('/')}
-                    className="absolute top-4 right-8 text-gray-600 hover:text-green-700 transition"
+                    className="absolute top-4 left-4 text-gray-600 hover:text-green-700 transition"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M19 12H5M12 19l-7-7 7-7"/>
                     </svg>
                 </button>
 
-                {/* logo */}
-                <div className="mb-5">
-                    <img src={LogoJudul} alt="DigiLab SMEKDA" className="h-26" />
+                <div className="mb-8 text-center">
+                    <img src={LogoJudul} alt="DigiLab" className="h-20 mx-auto mb-4" />
+                    <h2 className="text-3xl font-extrabold text-gray-800 mb-2">Masuk Admin</h2>
+                    <p className="text-gray-500 text-sm">Senang melihat Anda kembali!</p>
                 </div>
 
-                {/* card form login */}
-                <div className="bg-white p-10 rounded-4xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] w-[80%] max-w-md">
-                    <h2 className="text-3xl font-extrabold text-gray-800 text-center mb-8">Login Admin</h2>
+                {/* pesan error */}
+                {error && (
+                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-4 text-sm text-center">
+                        {error}
+                    </div>
+                )}
 
-                    <form onSubmit={handleLogin} className="space-y-5">
-                        {/* input email/identifier */}
-                        <div>
-                            <input 
-                                type="text" 
-                                placeholder="Email/NIS/NIP"
-                                className="w-full bg-gray-100 px-5 py-4 rounded-full text-sm outline-none focus:ring-2 focus:ring-green-800 transition"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
-                        </div>
+                <form onSubmit={handleLogin} className="w-full max-w-sm space-y-4">
+                    {/* input email/identifier */}
+                    <div>
+                        <input 
+                            type="text" 
+                            placeholder="Email/NIS/NISN/NIP"
+                            className="w-full bg-gray-100 px-5 py-3 rounded-full text-sm outline-none focus:ring-2 focus:ring-green-800 transition"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
 
-                        {/* input password */}
-                        <div>
-                            <input 
-                                type="password" 
-                                placeholder="Password"
-                                className="w-full bg-gray-100 px-5 py-4 rounded-full text-sm outline-none focus:ring-2 focus:ring-green-800 transition"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                        </div>
+                    {/* input password */}
+                    <div className="relative w-full"> 
+                        <input 
+                            type={showPassword ? 'text' : 'password'} 
+                            placeholder="Password"
+                            className="w-full bg-gray-100 pl-5 pr-12 py-3 rounded-full text-sm outline-none focus:ring-2 focus:ring-green-800 transition"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <button
+                            type="button"
+                            onClick={togglePasswordVisibility}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-green-800 transition-colors"
+                        >
+                            {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                        </button>
+                    </div>
 
-                        {/* login button */}
-                        <div className="pt-5 flex justify-center">
-                            <button
-                                type="submit"
-                                className="bg-green-800 text-white font-bold px-12 py-3 rounded-full hover:bg-green-800 transition shadow-lg"
-                            >
-                                Login
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                    {/* login button */}
+                    <div className="flex justify-center">
+                        <button
+                            type="submit"
+                            disabled={isLoading} 
+                            className={`w-full text-white font-bold px-6 py-3 rounded-full shadow-lg transition mt-4 ${isLoading ? 'bg-gray-400' : 'bg-green-800 hover:bg-green-900'}`}
+                        >
+                            {isLoading ? 'Memproses...' : 'Login'}
+                        </button>
+                    </div>
+                </form>
             </div>
 
         </div>

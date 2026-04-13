@@ -48,7 +48,7 @@ const WaitingReset = () => {
                         <p className="text-gray-500 text-sm mb-8">Admin telah menyetujui permintaanmu. Sekarang kamu bisa login dengan password baru.</p>
                         <button 
                             onClick={() => navigate('/login-user')}
-                            className="w-full bg-[#4e8a68] text-white font-bold py-3 rounded-full shadow-lg"
+                            className="w-full bg-green-800 text-white font-bold py-4 rounded-full shadow-lg hover:bg-green-900 transition transform hover:-translate-y-1"
                         >
                             Kembali Ke Login
                         </button>

@@ -8,7 +8,7 @@ const Footer = () => {
                 
                 {/* KOLOM 1: BRANDING & DESKRIPSI */}
                 <div>
-                    <h3 className="text-2xl font-bold mb-6">DigiLab SMEKDA</h3>
+                    <h3 className="text-2xl font-bold mb-6">DigiLib SMEKDA</h3>
                     <p className="text-white/90 leading-relaxed text-sm">
                     Sistem informasi perpustakaan digital SMKN 2 Purwakarta. 
                     Mengintegrasikan layanan sirkulasi dan pengelolaan katalog buku 
@@ -67,7 +67,7 @@ const Footer = () => {
                         <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                         </svg>
-                        <span>digilabsmekda@gmail.com</span>
+                        <span>digilibsmekda@gmail.com</span>
                     </li>
                     </ul>
                 </div>
@@ -99,7 +99,7 @@ const Footer = () => {
                 {/* === GARIS PEMBATAS & COPYRIGHT === */}
                 <div className="border-t border-white/20 pt-8 text-center">
                 <p className="text-white/80 text-sm">
-                    &copy; 2026 DigiLab SMKN 2 Purwakarta. All rights reserved.
+                    &copy; 2026 DigiLib SMKN 2 Purwakarta. All rights reserved.
                 </p>
                 </div>
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from 'lucide-react';
 import LogoJudul from "../../assets/LogoJudul.png"
 import Reading from "../../assets/reading.jpeg"
 
@@ -10,6 +11,7 @@ const LoginUser = () => {
 
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -43,7 +45,7 @@ const LoginUser = () => {
             localStorage.setItem("user", JSON.stringify(data.user));
 
             //arahkan ke dashboard user
-            navigate('/user/dashboard');
+            navigate('/user/dashboard/discover');
 
         } catch (err) {
             setError(err.message);
@@ -52,11 +54,15 @@ const LoginUser = () => {
         }
     };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <div className="flex h-screen w-full bg-white font-sans">
 
             {/* bagian kiri */}
-            <div className="w-full md:w-1/2 flex flex-col items-center justify-center relative">
+            <div className="w-full md:w-1/2 flex flex-col items-center justify-center relative p-8">
 
                 {/* tombol back */}
                 <button
@@ -68,69 +74,74 @@ const LoginUser = () => {
                     </svg>
                 </button>
 
-                {/* logo */}
-                <div className="mb-5">
-                    <img src={LogoJudul} alt="DigiLab SMEKDA" className="h-26" />
+                <div className="mb-8 text-center">
+                    <img src={LogoJudul} alt="DigiLab" className="h-20 mx-auto mb-4" />
+                    <h2 className="text-3xl font-extrabold text-gray-800 mb-2">Masuk User</h2>
+                    <p className="text-gray-500 text-sm">Senang melihat Anda kembali!</p>
                 </div>
 
-                {/* card form login */}
-                <div className="bg-white p-10 rounded-4xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] w-[80%] max-w-md">
-                    <h2 className="text-3xl font-extrabold text-gray-800 text-center mb-8">Login User</h2>
+                {/* pesan error */}
+                {error && (
+                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-4 text-sm text-center">
+                        {error}
+                    </div>
+                )}
 
-                    {/* pesan error */}
-                    {error && (
-                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-4 text-sm text-center">
-                            {error}
-                        </div>
-                    )}
+                <form onSubmit={handleLogin} className="w-full max-w-sm space-y-4">
+                    {/* input email/identifier */}
+                    <div>
+                        <input 
+                            type="text" 
+                            placeholder="Email/NIS/NISN/NIP"
+                            className="w-full bg-gray-100 px-5 py-3 rounded-full text-sm outline-none focus:ring-2 focus:ring-green-800 transition"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
 
-                    <form onSubmit={handleLogin} className="space-y-5">
-                        {/* input email/identifier */}
-                        <div>
-                            <input 
-                                type="text" 
-                                placeholder="Email/NIS/NIP"
-                                className="w-full bg-gray-100 px-5 py-4 rounded-full text-sm outline-none focus:ring-2 focus:ring-green-800 transition"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
-                        </div>
+                    {/* input password */}
+                    <div className="relative w-full"> 
+                        <input 
+                            type={showPassword ? 'text' : 'password'} 
+                            placeholder="Password"
+                            className="w-full bg-gray-100 pl-5 pr-12 py-3 rounded-full text-sm outline-none focus:ring-2 focus:ring-green-800 transition"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <button
+                            type="button"
+                            onClick={togglePasswordVisibility}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-green-800 transition-colors"
+                        >
+                            {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                        </button>
+                    </div>
 
-                        {/* input password */}
-                        <div>
-                            <input 
-                                type="password" 
-                                placeholder="Password"
-                                className="w-full bg-gray-100 px-5 py-4 rounded-full text-sm outline-none focus:ring-2 focus:ring-green-800 transition"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                        </div>
+                    {/* Forgot password */}
+                    <div className="text-sm text-right pr-2">
+                        <Link to="/forgot-password" className="text-green-800 font-bold hover:underline">Forgot Password?</Link>
+                    </div>
 
-                        {/* Forgot password */}
-                        <div className="text-sm text-right pr-2">
-                            <Link to="/forgot-password" className="text-green-700 underline hover:text-black hover:no-underline font-bold">Forgot Password?</Link>
-                        </div>
+                    {/* login button */}
+                    <div className="flex justify-center">
+                        <button
+                            type="submit"
+                            disabled={isLoading} 
+                            className={`w-full text-white font-bold px-6 py-3 rounded-full shadow-lg transition mt-4 ${isLoading ? 'bg-gray-400' : 'bg-green-800 hover:bg-green-900'}`}
+                        >
+                            {isLoading ? 'Memproses...' : 'Login'}
+                        </button>
+                    </div>
 
-                        {/* login button */}
-                        <div className="pt-2 flex justify-center">
-                            <button
-                                type="submit"
-                                className="bg-green-800 text-white font-bold px-12 py-3 rounded-full hover:bg-green-800 transition shadow-lg"
-                            >
-                                {isLoading ? 'Memproses...' : 'Login'}
-                            </button>
-                        </div>
-
-                        {/* register */}
-                        <div className="flex gap-1.5 text-sm justify-center pt-2">
-                            <p>Belum punya akun?</p>
-                            <Link to="/register-user" className="text-green-700 underline font-bold hover:no-underline hover:text-black">Daftar</Link>
-                        </div>
-                    </form>
-                </div>
+                    {/* register */}
+                    <div className="flex gap-1.5 text-sm justify-center pt-2">
+                        <p className="text-center text-sm text-gray-500 mt-4">
+                            Belum punya akun? <Link to="/register-user" className="text-green-800 font-bold hover:underline">Daftar</Link>
+                        </p>
+                    </div>
+                </form>
             </div>
 
             {/* bagian kanan */}
