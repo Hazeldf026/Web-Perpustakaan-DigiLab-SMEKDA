@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 const BookDetail = () => {
     const { id } = useParams();
@@ -50,7 +50,28 @@ const BookDetail = () => {
         }
     }, [borrowDays, isBorrowModalOpen]);
 
-    const handleToggleFavorite = async () => { /* ... (Sama seperti sebelumnya) ... */ };
+    const handleToggleFavorite = async () => {
+        setIsFavLoading(true);
+        try {
+            const response = await fetch("http://localhost:5000/api/favorites/toggle", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ bookId: id })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setIsFavorited(data.isFavorited); // Update state sesuai balasan server
+            }
+        } catch (error) {
+            console.error("Gagal mengubah favorit:", error);
+        } finally {
+            setIsFavLoading(false);
+        }
+    };
 
     // === FUNGSI SUBMIT PINJAM ===
     const submitBorrowRequest = async (e) => {
@@ -117,7 +138,13 @@ const BookDetail = () => {
 
                         <div className="flex flex-wrap gap-2 mb-8">
                             {book.genres && book.genres.map(genre => (
-                                <span key={genre.id} className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm font-semibold border border-gray-200">{genre.name}</span>
+                                <Link 
+                                    key={genre.id} 
+                                    to={`/user/genre/${genre.id}`} 
+                                    className="bg-gray-100 text-gray-600 hover:text-[#4e8a68] hover:bg-green-50 px-3 py-1 rounded-full text-sm font-semibold border border-gray-200 hover:border-green-200 transition"
+                                >
+                                    {genre.name}
+                                </Link>
                             ))}
                         </div>
 

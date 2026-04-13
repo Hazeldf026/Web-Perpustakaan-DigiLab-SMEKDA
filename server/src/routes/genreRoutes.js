@@ -14,4 +14,20 @@ router.get("/", verifyToken, async (req, res) => {
     }
 });
 
+router.get("/:id/books", verifyToken, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const genre = await prisma.genre.findUnique({
+            where: { id: Number(id) },
+            // Prisma sangat cerdas: kita tinggal include relasinya!
+            include: { books: true } 
+        });
+
+        if (!genre) return res.status(404).json({ message: "Genre tidak ditemukan" });
+        res.json(genre);
+    } catch (error) {
+        res.status(500).json({ message: "Gagal mengambil data buku", error: error.message });
+    }
+});
+
 export default router;

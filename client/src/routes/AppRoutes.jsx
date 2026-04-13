@@ -19,6 +19,7 @@ import RegisterUser from "../pages/auth/RegisterUser";
 import PendingApproval from "../pages/auth/PendingApproval";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import WaitingReset from "../pages/auth/WaitingReset";
+import GenreBooks from "../pages/user/Dashboard/GenreBooks";
 
 const AppRoutes = () => {
     return (
@@ -54,6 +55,7 @@ const AppRoutes = () => {
             </Route>
             <Route path="/user" element={<UserLayout />}>
                 <Route path="book/:id" element={<BookDetail />} />
+                <Route path="genre/:id" element={<GenreBooks />} />
             </Route>
         </Routes>
     )

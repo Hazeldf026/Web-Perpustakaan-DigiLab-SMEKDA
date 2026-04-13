@@ -13,6 +13,7 @@ import genreRoutes from "./src/routes/genreRoutes.js";
 import favoriteRoutes from "./src/routes/favoriteRoutes.js";
 import transactionRoutes from "./src/routes/transactionRoutes.js";
 import userTransactionRoutes from "./src/routes/userTransactionRoutes.js";
+import dashboardRoutes from "./src/routes/dashboardRoutes.js";
 
 // 1. Load env vars
 dotenv.config();
@@ -58,6 +59,7 @@ app.use("/api/genres", genreRoutes);
 app.use("/api/favorites", favoriteRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/my-transactions", userTransactionRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.get("/api/profil-saya", verifyToken, (req, res) => {
     // req.user ini didapat dari hasil kerja satpam verifyToken
