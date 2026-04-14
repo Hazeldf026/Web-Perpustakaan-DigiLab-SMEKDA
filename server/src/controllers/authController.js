@@ -76,12 +76,22 @@ export const checkRegistrationStatus = async (req, res) => {
 
 export const login = async (req, res) => {
 try {
-    const { email, password } = req.body;
+    const { email, loginId, password } = req.body;
 
-    // Cari user berdasarkan email
-    const user = await prisma.user.findUnique({ where: { email } });
+    const userInput = loginId || email;
+
+    // Cari user berdasarkan email atau identifier
+    const user = await prisma.user.findFirst({ 
+        where: { 
+            OR: [
+                { email: userInput },
+                { identifier: userInput }
+            ]
+        } 
+    });
+
     if (!user) {
-    return res.status(404).json({ message: "User tidak ditemukan!" });
+        return res.status(404).json({ message: "Pengguna tidak ditemukan! Periksa kembali Email/NIS/NISN/NIP Anda." });
     }
 
     // Cek password
