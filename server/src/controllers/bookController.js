@@ -1,6 +1,6 @@
 import { prisma } from "../config/db.js";
 
-// 1. GET: Ambil semua data buku
+// Ambil semua data buku
 export const getAllBooks = async (req, res) => {
     try {
         const books = await prisma.book.findMany({
@@ -13,7 +13,7 @@ export const getAllBooks = async (req, res) => {
     }
 };
 
-// 2. GET: Ambil satu buku berdasarkan ID
+// Ambil satu buku berdasarkan ID
 export const getBookById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -27,16 +27,14 @@ export const getBookById = async (req, res) => {
     }
 };
 
-// 3. POST: Tambah buku baru (Khusus Admin)
+// Tambah buku baru (Khusus Admin)
 export const createBook = async (req, res) => {
     try {
-        // Perhatikan: Data teks ada di req.body, file ada di req.file
         const { bookCode, title, author, publisher, synopsis, stock, genreIds } = req.body;
 
         const existingBook = await prisma.book.findUnique({ where: { bookCode } });
         if (existingBook) return res.status(400).json({ message: "Kode Buku sudah terdaftar!" });
 
-        // Ambil nama file acak yang digenerate Multer
         const coverImageName = req.file ? req.file.filename : null;
 
         let parsedGenreIds = [];
@@ -61,7 +59,7 @@ export const createBook = async (req, res) => {
     }
 };
 
-// 4. PUT: Update data buku (Khusus Admin)
+// Update data buku (Khusus Admin)
 export const updateBook = async (req, res) => {
     try {
         const { id } = req.params;
@@ -94,7 +92,7 @@ export const updateBook = async (req, res) => {
     }
 };
 
-// PUT: Toggle Rekomendasi Buku (Fitur "Pin")
+// Toggle Rekomendasi Buku (Fitur "Pin")
 export const toggleRecommend = async (req, res) => {
     try {
         const { id } = req.params;
@@ -118,7 +116,7 @@ export const toggleRecommend = async (req, res) => {
     }
 };
 
-// 5. DELETE: Hapus buku (Khusus Admin)
+// Hapus buku (Khusus Admin)
 export const deleteBook = async (req, res) => {
     try {
         const { id } = req.params;

@@ -63,7 +63,6 @@ export const processTransaction = async (req, res) => {
                 })
             ]);
 
-            // Kirim notif ke user bahwa peminjaman disetujui
             const targetRoom = `user_${transaction.userId}`;
             console.log(`[Socket] Emitting transaction_update to room: ${targetRoom}`);
             io.to(targetRoom).emit("transaction_update", { 
@@ -79,7 +78,6 @@ export const processTransaction = async (req, res) => {
                 data: { status: 'REJECTED' }
             });
 
-            // Kirim notif ke user bahwa peminjaman ditolak
             const targetRoom2 = `user_${transaction.userId}`;
             console.log(`[Socket] Emitting transaction_update to room: ${targetRoom2}`);
             io.to(targetRoom2).emit("transaction_update", { 
@@ -90,7 +88,6 @@ export const processTransaction = async (req, res) => {
         }
 
         else if (action === 'APPROVE_RETURN') {
-            // Tambah stok & Set status dikembalikan
             await prisma.$transaction([
                 prisma.transaction.update({
                     where: { id: Number(id) },
@@ -102,7 +99,6 @@ export const processTransaction = async (req, res) => {
                 })
             ]);
 
-            // Kirim notif ke user bahwa pengembalian disetujui
             const targetRoom3 = `user_${transaction.userId}`;
             console.log(`[Socket] Emitting transaction_update to room: ${targetRoom3}`);
             io.to(targetRoom3).emit("transaction_update", { 
@@ -118,27 +114,19 @@ export const processTransaction = async (req, res) => {
     }
 };
 
-// ==========================================
-// FUNGSI KHUSUS USER (ANGGOTA)
-// ==========================================
-
-// 1. User request pinjam buku
 export const requestBorrow = async (req, res) => {
     try {
         const { bookId, days } = req.body;
         const userId = req.user.id;
 
-        // Hitung tenggat waktu (dueDate)
         const dueDate = new Date();
         dueDate.setDate(dueDate.getDate() + Number(days));
 
-        // Validasi ekstra di backend: Tolak jika jatuh pada Sabtu(6) atau Minggu(0)
         const dayOfWeek = dueDate.getDay();
         if (dayOfWeek === 0 || dayOfWeek === 6) {
             return res.status(400).json({ message: "Tanggal pengembalian tidak boleh hari Sabtu atau Minggu!" });
         }
 
-        // Cek apakah user masih ada transaksi menggantung untuk buku ini
         const existing = await prisma.transaction.findFirst({
             where: { 
                 userId, bookId: Number(bookId), 
@@ -152,7 +140,7 @@ export const requestBorrow = async (req, res) => {
                 userId,
                 bookId: Number(bookId),
                 status: 'PENDING_BORROW',
-                dueDate // Catat target tanggal kembali
+                dueDate
             }
         });
 
@@ -165,7 +153,6 @@ export const requestBorrow = async (req, res) => {
     }
 };
 
-// 2. User lihat riwayat transaksinya sendiri
 export const getMyTransactions = async (req, res) => {
     try {
         const transactions = await prisma.transaction.findMany({
@@ -179,7 +166,6 @@ export const getMyTransactions = async (req, res) => {
     }
 };
 
-// 3. User request kembalikan buku
 export const requestReturn = async (req, res) => {
     try {
         const { id } = req.params;

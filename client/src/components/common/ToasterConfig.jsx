@@ -20,7 +20,6 @@ const ToasterConfig = () => {
               {icon}
               <div className="text-sm font-bold text-gray-700">{message}</div>
               
-              {/* Tombol X (Close) */}
               {t.type !== 'loading' && (
                 <button 
                   onClick={() => toast.dismiss(t.id)} 

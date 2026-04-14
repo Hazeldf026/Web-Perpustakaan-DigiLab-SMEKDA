@@ -19,7 +19,6 @@ const LoginUser = () => {
         setIsLoading(true);
 
         try {
-            //tembak api
             const response = await fetch("http://localhost:5000/api/auth/login", {
                 method: "POST",
                 headers: {
@@ -30,21 +29,17 @@ const LoginUser = () => {
 
             const data = await response.json();
 
-            //cek jika response adalah error (400, 401, 404)
             if (!response.ok) {
                 throw new Error(data.message || "Terjadi kesalahan saat login");
             }
 
-            //validasi role admin dan user
             if (data.user.role !== "MEMBER") {
                 throw new Error("Akses ditolak! Silahkan login di halaman Admin.");
             }
 
-            //jika sukses, simpan token dan data user ke local storage
             localStorage.setItem('user_token', data.token);
             localStorage.setItem('user_data', JSON.stringify(data.user));
 
-            //arahkan ke dashboard user
             navigate('/user/dashboard/discover');
 
         } catch (err) {

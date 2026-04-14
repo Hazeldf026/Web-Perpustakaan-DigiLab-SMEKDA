@@ -35,15 +35,10 @@ const AppRoutes = () => {
             <Route path="/waiting-reset/:identifier" element={<WaitingReset />} />
 
             <Route path="/admin" element={<AdminLayout />}>
-                {/* /admin/dashboard */}
                 <Route path="dashboard" element={<AdminDashboard />} /> 
-                {/* /admin/databuku */}
                 <Route path="buku" element={<DataBuku />} />
-                {/* /admin/dataanggota */}
                 <Route path="anggota" element={<DataAnggota />} />
-                {/* /admin/request */}
                 <Route path="request" element={<Request />} />
-                {/* /admin/datatransaksi */}
                 <Route path="transaksi" element={<DataTransaksi />} />
             </Route>
 

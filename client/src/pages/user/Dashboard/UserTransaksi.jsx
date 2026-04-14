@@ -27,7 +27,6 @@ const UserTransaksi = () => {
 
     const socket = useSocket();
 
-    // Effect join room — re-join setiap kali socket (re)connect
     useEffect(() => {
         if (!socket || !userId) return;
 
@@ -42,7 +41,6 @@ const UserTransaksi = () => {
         return () => socket.off('connect', joinRoom);
     }, [socket, userId]);
 
-    // Effect listen transaction_update → auto-refresh data
     useEffect(() => {
         fetchTransactions();
         if (!socket) return;
@@ -61,7 +59,6 @@ const UserTransaksi = () => {
         setIsReturnModalOpen(true);
     };
 
-    // Fungsi Minta Kembalikan Buku (dipanggil dari modal, no window.confirm)
     const requestReturnBook = async (id) => {
         
         try {

@@ -39,7 +39,6 @@ const DataBuku = () => {
 
     useEffect(() => { fetchBooks(); fetchGenres(); }, []);
 
-    // --- FUNGSI BARU: PIN / REKOMENDASI BUKU ---
     const handleToggleRecommend = async (id) => {
         try {
             const response = await fetch(`http://localhost:5000/api/books/${id}/recommend`, {
@@ -47,7 +46,6 @@ const DataBuku = () => {
                 headers: { "Authorization": `Bearer ${token}` }
             });
             if (response.ok) {
-                // Refresh data buku agar bintang berubah warna
                 fetchBooks();
                 toast.success(data.message);
             }
@@ -56,7 +54,6 @@ const DataBuku = () => {
         }
     };
 
-    // --- FUNGSI PILIH GENRE ---
     const handleGenreSelect = (e) => {
         const selectedId = Number(e.target.value);
         if (!selectedId) return;

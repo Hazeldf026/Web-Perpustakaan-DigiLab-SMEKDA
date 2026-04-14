@@ -3,10 +3,7 @@ import { register, login, forgotPassword, checkResetStatus, checkRegistrationSta
 
 const router = express.Router();
 
-// Alamat: /api/auth/register
 router.post("/register", register);
-
-// Alamat: /api/auth/login
 router.post("/login", login);
 
 router.get("/registration-status/:identifier", checkRegistrationStatus);

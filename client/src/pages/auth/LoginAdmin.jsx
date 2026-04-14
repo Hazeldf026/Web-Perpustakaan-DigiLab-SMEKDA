@@ -20,7 +20,6 @@ const LoginAdmin = () => {
             setIsLoading(true);
     
             try {
-                //tembak api
                 const response = await fetch("http://localhost:5000/api/auth/login", {
                     method: "POST",
                     headers: {
@@ -31,21 +30,17 @@ const LoginAdmin = () => {
     
                 const data = await response.json();
     
-                //cek jika response adalah error (400, 401, 404)
                 if (!response.ok) {
                     throw new Error(data.message || "Terjadi kesalahan saat login");
                 }
     
-                //validasi role admin dan user
                 if (data.user.role !== "ADMIN") {
                     throw new Error("Akses ditolak! Ini adalah area khusus Admin.");
                 }
     
-                //jika sukses, simpan token dan data user ke local storage
                 localStorage.setItem('admin_token', data.token);
                 localStorage.setItem('admin_user', JSON.stringify(data.user));
     
-                //arahkan ke dashboard user
                 navigate('/admin/dashboard');
     
             } catch (err) {

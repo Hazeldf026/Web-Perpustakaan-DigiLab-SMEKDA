@@ -29,7 +29,6 @@ const ForgotPassword = () => {
                 body: JSON.stringify(payloadData)
             });
             if (res.ok) {
-                // Pindah ke halaman tunggu dengan membawa identifier
                 navigate(`/waiting-reset/${formData.identifier}`);
             } else {
                 setError("Gagal mengirim permintaan. Periksa kembali NIS/NIP kamu.");

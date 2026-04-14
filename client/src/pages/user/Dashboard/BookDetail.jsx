@@ -9,7 +9,6 @@ const BookDetail = () => {
     const [isFavorited, setIsFavorited] = useState(false);
     const [isFavLoading, setIsFavLoading] = useState(false);
 
-    // === STATE MODAL PEMINJAMAN ===
     const [isBorrowModalOpen, setIsBorrowModalOpen] = useState(false);
     const [borrowDays, setBorrowDays] = useState(1);
     const [returnDateInfo, setReturnDateInfo] = useState(null);
@@ -32,7 +31,6 @@ const BookDetail = () => {
         fetchBookDetailAndFavoriteStatus();
     }, [id, navigate, token]);
 
-    // === LOGIKA TANGGAL & VALIDASI WEEKEND ===
     useEffect(() => {
         if (!isBorrowModalOpen) return;
         
@@ -41,7 +39,6 @@ const BookDetail = () => {
         
         setReturnDateInfo(date);
 
-        // 0 = Minggu, 6 = Sabtu
         const day = date.getDay();
         if (day === 0 || day === 6) {
             setIsWeekendError(true);
@@ -64,7 +61,7 @@ const BookDetail = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                setIsFavorited(data.isFavorited); // Update state sesuai balasan server
+                setIsFavorited(data.isFavorited); 
             }
         } catch (error) {
             console.error("Gagal mengubah favorit:", error);
@@ -73,10 +70,9 @@ const BookDetail = () => {
         }
     };
 
-    // === FUNGSI SUBMIT PINJAM ===
     const submitBorrowRequest = async (e) => {
         e.preventDefault();
-        if (isWeekendError) return; // Cegah submit jika error
+        if (isWeekendError) return;
         setIsSubmitting(true);
 
         try {
@@ -89,7 +85,6 @@ const BookDetail = () => {
             
             if (response.ok) {
                 setIsBorrowModalOpen(false);
-                // Beralih ke page transaksi
                 navigate('/user/dashboard/transaksi'); 
             } else {
                 alert(data.message);

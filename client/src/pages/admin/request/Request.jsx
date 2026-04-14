@@ -29,10 +29,8 @@ const Request = () => {
 
     const socket = useSocket();
 
-    // Fetch data saat pertama kali halaman dibuka
     useEffect(() => { fetchRequests(); }, []);
 
-    // Auto-refresh tabel saat ada request baru masuk via socket
     useEffect(() => {
         if (!socket) return;
         socket.on('new_request', () => {
@@ -41,7 +39,6 @@ const Request = () => {
         return () => socket.off('new_request');
     }, [socket]);
 
-    // Aksi Buku
     const handleBookAction = async (id, action) => {
         try {
             await fetch(`http://localhost:5000/api/transactions/${id}/action`, {
@@ -49,11 +46,10 @@ const Request = () => {
                 headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
                 body: JSON.stringify({ action })
             });
-            fetchRequests(); // Refresh data
+            fetchRequests();
         } catch (error) { console.error("Gagal memproses aksi:", error); }
     };
 
-    // Aksi Password
     const handlePassAction = async (id, action) => {
         try {
             await fetch(`http://localhost:5000/api/users/${id}/reset-action`, {
@@ -72,7 +68,7 @@ const Request = () => {
             headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
             body: JSON.stringify({ action })
         });
-        fetchRequests(); // Refresh otomatis
+        fetchRequests(); 
     } catch (error) { console.error(error); }
 };
 

@@ -19,7 +19,6 @@ router.get("/:id/books", verifyToken, async (req, res) => {
         const { id } = req.params;
         const genre = await prisma.genre.findUnique({
             where: { id: Number(id) },
-            // Prisma sangat cerdas: kita tinggal include relasinya!
             include: { books: true } 
         });
 

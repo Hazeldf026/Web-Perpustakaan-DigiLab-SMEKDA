@@ -68,7 +68,6 @@ app.use("/api/dashboard", dashboardRoutes);
 
 // Test Route
 app.get("/api/profil-saya", verifyToken, (req, res) => {
-    // req.user ini didapat dari hasil kerja satpam verifyToken
     res.json({ message: "Selamat datang di profilmu!", user: req.user });
 });
 app.get("/api/data-rahasia-admin", verifyToken, isAdmin, (req, res) => {

@@ -16,7 +16,6 @@ const AdminNavbar = () => {
         navigate('/');
     };
 
-    // Fungsi untuk mengecek apakah link aktif
     const isActive = (path) => location.pathname === path;
 
     const socket = useSocket();
@@ -38,7 +37,7 @@ const AdminNavbar = () => {
             toast.custom((t) => (
                 <div 
                     onClick={() => {
-                        navigate(`/admin/request?tab=${data.type}`); // Lempar ke tab yang spesifik
+                        navigate(`/admin/request?tab=${data.type}`);
                         toast.dismiss(t.id);
                         setRequestCount(0);
                     }}
@@ -102,7 +101,6 @@ const AdminNavbar = () => {
                 >
                     <NotebookPen />
                     Request
-                    {/* Titik Merah di dalam Tombol, di sebelah tulisan */}
                     {requestCount > 0 && (
                         <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse shadow-md">
                             {requestCount} Baru

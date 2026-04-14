@@ -7,7 +7,6 @@ const Discover = () => {
     const [books, setBooks] = useState([]); 
     const [isLoading, setIsLoading] = useState(true);
     
-    // State untuk Carousel Rekomendasi
     const [activeCarouselIndex, setActiveCarouselIndex] = useState(0);
 
     useEffect(() => {
@@ -38,31 +37,24 @@ const Discover = () => {
         return `http://localhost:5000/uploads/covers/${imagePath}`;
     };
 
-    // --- PENGOLAHAN DATA BUKU ---
-    
-    // 1. Buku Rekomendasi (Diambil dari isRecommended = true)
-    // Jika admin belum set satupun, kita ambil 3 buku acak/terbaru sebagai fallback
     const recommendedBooks = books.filter(b => b.isRecommended).length > 0 
         ? books.filter(b => b.isRecommended) 
         : books.slice(0, 3);
 
-    // 2. Buku Populer (Diurutkan berdasarkan jumlah favorit terbanyak)
     const popularBooks = [...books]
         .sort((a, b) => (b.favorites?.length || 0) - (a.favorites?.length || 0))
-        .slice(0, 5); // Ambil Top 5
+        .slice(0, 5);
 
-    // 3. Semua Koleksi (termasuk hasil pencarian)
     const filteredBooks = books.filter(book => 
         book.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
         book.author.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    // --- AUTOPLAY CAROUSEL ---
     useEffect(() => {
         if (recommendedBooks.length <= 1) return;
         const interval = setInterval(() => {
             setActiveCarouselIndex((prev) => (prev + 1) % recommendedBooks.length);
-        }, 4000); // Ganti slide setiap 4 detik
+        }, 4000); 
         return () => clearInterval(interval);
     }, [recommendedBooks.length]);
 

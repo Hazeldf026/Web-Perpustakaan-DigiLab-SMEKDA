@@ -3,7 +3,6 @@ const Footer = () => {
         <footer className="bg-green-800 text-white pt-16 pb-8">
             <div className="container mx-auto px-4">
         
-                {/* === GRID UTAMA (4 KOLOM) === */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                 
                 {/* KOLOM 1: BRANDING & DESKRIPSI */}

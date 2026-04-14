@@ -78,24 +78,24 @@ export const login = async (req, res) => {
 try {
     const { email, password } = req.body;
 
-    // 1. Cari user berdasarkan email
+    // Cari user berdasarkan email
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
     return res.status(404).json({ message: "User tidak ditemukan!" });
     }
 
-    // 2. Cek password (Bandingkan input dengan yang di DB)
+    // Cek password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
     return res.status(401).json({ message: "Password salah!" });
     }
 
-    // TAMBAHKAN BLOK INI: Cek persetujuan Admin
+    // Cek persetujuan Admin
     if (user.role === 'MEMBER' && !user.isApproved) {
         return res.status(403).json({ message: "Akun Anda belum di-ACC oleh Admin. Harap tunggu." });
     }
 
-    // 3. Bikin Token (JWT)
+    // Bikin Token (JWT)
     const token = jwt.sign(
     { id: user.id, role: user.role }, // Data yang disimpan dalam token
     SECRET_KEY,
@@ -125,7 +125,6 @@ export const forgotPassword = async (req, res) => {
             }
         });
 
-        // Kirim notifikasi real-time ke admin
         const io = req.app.get("io");
         io.emit("new_request", {
             type: 'password',
@@ -148,7 +147,6 @@ export const checkResetStatus = async (req, res) => {
         
         if (!user) return res.status(404).json({ message: "User tidak ditemukan" });
         
-        // Jika isResetPending sudah false, berarti sudah di-ACC (atau ditolak)
         res.status(200).json({ approved: !user.isResetPending });
     } catch (error) {
         res.status(500).json({ message: "Error", error: error.message });

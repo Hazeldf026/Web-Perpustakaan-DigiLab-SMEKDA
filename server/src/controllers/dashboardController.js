@@ -2,7 +2,6 @@ import { prisma } from "../config/db.js";
 
 export const getDashboardStats = async (req, res) => {
     try {
-        // Mengambil semua hitungan secara paralel untuk performa lebih cepat
         const [totalBooks, totalMembers, activeLoans, pendingRequests] = await Promise.all([
             prisma.book.count(),
             prisma.user.count({ 
@@ -11,23 +10,19 @@ export const getDashboardStats = async (req, res) => {
             prisma.transaction.count({ 
                 where: { status: 'BORROWED' } 
             }),
-            // Menghitung semua jenis request yang butuh ACC
             prisma.transaction.count({ 
                 where: { status: { in: ['PENDING_BORROW', 'PENDING_RETURN'] } }
             })
         ]);
 
-        // Menghitung pendaftaran akun yang belum di-ACC
         const pendingUsers = await prisma.user.count({
             where: { isApproved: false }
         });
 
-        // Menghitung request reset password
         const pendingResets = await prisma.user.count({
             where: { isResetPending: true }
         });
 
-        // Mengambil 5 aktivitas transaksi terbaru
         const recentActivities = await prisma.transaction.findMany({
             take: 5,
             orderBy: { updatedAt: 'desc' },

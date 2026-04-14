@@ -8,7 +8,7 @@ const WaitingApproval = () => {
     const navigate = useNavigate();
     const socket = useSocket();
     
-    const [status, setStatus] = useState('pending'); // 'pending' | 'approved' | 'rejected'
+    const [status, setStatus] = useState('pending');
 
     useEffect(() => {
         if (!socket) return;
@@ -19,12 +19,10 @@ const WaitingApproval = () => {
             if (data.rejected) setStatus('rejected');
         });
 
-        // Polling Fallback
         const checkStatus = async () => {
             try {
                 const res = await fetch(`http://localhost:5000/api/auth/reset-status/${identifier}`);
                 if (res.status === 404) {
-                    // Jika 404 (User tidak ditemukan), berarti Admin telah MENOLAK dan MENGHAPUS pendaftarannya
                     setStatus('rejected');
                 } else if (res.ok) {
                     const data = await res.json();

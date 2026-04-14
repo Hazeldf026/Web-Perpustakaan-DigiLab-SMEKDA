@@ -16,12 +16,10 @@ const UserNavbar = () => {
     const userId = getUserId();
 
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-    // Update locationRef setiap kali location berubah, tanpa re-register listener
     useEffect(() => {
         locationRef.current = location;
     }, [location]);
 
-    // Effect untuk join room — jalan setiap kali socket (re)connect
     useEffect(() => {
         if (!socket || !userId) return;
 
@@ -30,10 +28,8 @@ const UserNavbar = () => {
             console.log(`[Socket] Joined room: user_${userId} (socketId: ${socket.id})`);
         };
 
-        // Emit join_room setiap kali connect (termasuk reconnect setelah server restart)
         socket.on('connect', joinRoom);
 
-        // Jika socket sudah terkoneksi sebelum listener dipasang, join langsung
         if (socket.connected) {
             joinRoom();
         }
@@ -41,12 +37,10 @@ const UserNavbar = () => {
         return () => socket.off('connect', joinRoom);
     }, [socket, userId]);
 
-    // Effect untuk listen event transaction_update — tidak bergantung pada location
     useEffect(() => {
         if (!socket) return;
 
         const handleTransactionUpdate = (data) => {
-            // Gunakan locationRef agar selalu dapat nilai location terbaru
             const currentPath = locationRef.current.pathname;
             if (currentPath.includes('/user/dashboard/transaksi')) return;
 
@@ -73,7 +67,6 @@ const UserNavbar = () => {
         return () => socket.off("transaction_update", handleTransactionUpdate);
     }, [socket, navigate]);
 
-    // Reset badge saat user membuka halaman transaksi
     useEffect(() => {
         if (location.pathname.includes('/user/dashboard/transaksi')) setTrxBadge(0);
     }, [location.pathname]);
@@ -81,7 +74,7 @@ const UserNavbar = () => {
     const executeLogout = () => {
         localStorage.removeItem('user_token'); 
         localStorage.removeItem('user_data');
-        setIsLogoutModalOpen(false); // Tutup modal
+        setIsLogoutModalOpen(false); 
         navigate('/');
     };
 
@@ -125,7 +118,6 @@ const UserNavbar = () => {
                         className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition ${isActive('/user/dashboard/transaksi') ? 'bg-green-800 text-white shadow-md' : 'text-gray-500 hover:bg-green-50 hover:text-green-700'}`}>
                         <Scale />
                         Transaksi
-                        {/* Titik Merah Transaksi */}
                         {trxBadge > 0 && (
                             <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse shadow-md">
                                 {trxBadge}
@@ -143,7 +135,6 @@ const UserNavbar = () => {
                 </div>
             </aside>
 
-            {/* --- MODAL KONFIRMASI LOGOUT --- */}
             {isLogoutModalOpen && (
                 <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-100 p-4 backdrop-blur-sm">
                     <div className="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl transform transition-all text-center p-8">

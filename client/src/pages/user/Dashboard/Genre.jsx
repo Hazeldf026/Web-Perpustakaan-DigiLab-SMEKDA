@@ -22,7 +22,6 @@ const Genre = () => {
         fetchGenres();
     }, []);
 
-    // Daftar warna dinamis agar kotak genre tidak membosankan
     const colors = [
         "bg-blue-500", "bg-purple-500", "bg-pink-500", "bg-red-500", 
         "bg-orange-500", "bg-yellow-500", "bg-green-500", "bg-teal-500", "bg-cyan-500"
@@ -40,7 +39,6 @@ const Genre = () => {
             ) : (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                     {genres.map((genre, index) => {
-                        // Memilih warna berulang dari array colors
                         const colorClass = colors[index % colors.length];
                         
                         return (
@@ -50,7 +48,6 @@ const Genre = () => {
                                 className={`${colorClass} relative h-32 rounded-2xl p-6 text-white overflow-hidden group shadow-md hover:shadow-xl transition transform hover:-translate-y-1`}
                             >
                                 <h2 className="text-xl font-bold relative z-10 group-hover:scale-110 transition origin-left">{genre.name}</h2>
-                                {/* Dekorasi Abstrak di pojok */}
                                 <svg className="absolute -right-4 -bottom-4 w-24 h-24 text-white opacity-20 group-hover:scale-150 transition duration-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2z"/></svg>
                             </Link>
                         )

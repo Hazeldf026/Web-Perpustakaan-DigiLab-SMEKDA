@@ -31,7 +31,6 @@ const AdminDashboard = () => {
         fetchDashboardData();
     }, []);
 
-    // Real-time update: Jika ada request baru, refresh angka di dashboard
     useEffect(() => {
         if (!socket) return;
         socket.on("new_request", () => {
