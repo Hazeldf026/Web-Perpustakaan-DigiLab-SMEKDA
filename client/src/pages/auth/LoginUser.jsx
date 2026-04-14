@@ -41,8 +41,8 @@ const LoginUser = () => {
             }
 
             //jika sukses, simpan token dan data user ke local storage
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem('user_token', data.token);
+            localStorage.setItem('user_data', JSON.stringify(data.user));
 
             //arahkan ke dashboard user
             navigate('/user/dashboard/discover');

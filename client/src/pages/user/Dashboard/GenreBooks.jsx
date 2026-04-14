@@ -9,7 +9,7 @@ const GenreBooks = () => {
 
     useEffect(() => {
         const fetchBooksByGenre = async () => {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('user_token');
             try {
                 // Tembak API baru yang barusan kita buat
                 const response = await fetch(`http://localhost:5000/api/genres/${id}/books`, {

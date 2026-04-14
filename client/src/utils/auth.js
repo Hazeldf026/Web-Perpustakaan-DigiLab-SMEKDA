@@ -1,17 +1,13 @@
-/**
- * Ambil user ID dari localStorage.
- * - Pertama coba dari field 'user.id' (tersedia setelah login dengan server terbaru).
- * - Jika tidak ada (user lama yang login sebelum fix), decode dari JWT token sebagai fallback.
- */
+
 export const getUserId = () => {
-    const userStr = localStorage.getItem('user');
+    const userStr = localStorage.getItem('user_data');
     const user = userStr ? JSON.parse(userStr) : null;
 
     // Kasus normal: user.id ada
     if (user?.id) return user.id;
 
     // Fallback: decode JWT untuk ambil id
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('user_token');
     if (!token) return null;
 
     try {

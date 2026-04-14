@@ -20,7 +20,7 @@ const DataBuku = () => {
     });
     const [coverFile, setCoverFile] = useState(null);
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('admin_token');
 
     const fetchBooks = async () => {
         setIsLoading(true);

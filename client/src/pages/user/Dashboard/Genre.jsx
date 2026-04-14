@@ -7,7 +7,7 @@ const Genre = () => {
 
     useEffect(() => {
         const fetchGenres = async () => {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('user_token');
             try {
                 const response = await fetch("http://localhost:5000/api/genres", {
                     headers: { "Authorization": `Bearer ${token}` }

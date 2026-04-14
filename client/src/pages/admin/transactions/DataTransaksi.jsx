@@ -6,7 +6,7 @@ const DataTransaksi = () => {
 
     useEffect(() => {
         const fetchTransactions = async () => {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('admin_token');
             try {
                 const response = await fetch("http://localhost:5000/api/transactions", {
                     headers: { "Authorization": `Bearer ${token}` }

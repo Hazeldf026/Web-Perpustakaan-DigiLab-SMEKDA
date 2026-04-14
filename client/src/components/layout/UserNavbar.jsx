@@ -39,7 +39,7 @@ const UserNavbar = () => {
         }
 
         return () => socket.off('connect', joinRoom);
-    }, [socket]);
+    }, [socket, userId]);
 
     // Effect untuk listen event transaction_update — tidak bergantung pada location
     useEffect(() => {
@@ -79,8 +79,8 @@ const UserNavbar = () => {
     }, [location.pathname]);
 
     const executeLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        localStorage.removeItem('user_token'); 
+        localStorage.removeItem('user_data');
         setIsLogoutModalOpen(false); // Tutup modal
         navigate('/');
     };

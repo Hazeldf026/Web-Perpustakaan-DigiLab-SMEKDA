@@ -15,7 +15,7 @@ const DataAnggota = () => {
         identifier: '', name: '', email: '', password: ''
     });
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('admin_token');
 
     const fetchMembers = async () => {
         setIsLoading(true);

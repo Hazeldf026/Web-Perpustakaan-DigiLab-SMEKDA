@@ -6,7 +6,7 @@ import { getUserId } from '../../../utils/auth';
 const UserTransaksi = () => {
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('user_token');
     const userId = getUserId();
 
     const [isReturnModalOpen, setIsReturnModalOpen] = useState(false);
@@ -40,7 +40,7 @@ const UserTransaksi = () => {
         if (socket.connected) joinRoom();
 
         return () => socket.off('connect', joinRoom);
-    }, [socket]);
+    }, [socket, userId]);
 
     // Effect listen transaction_update → auto-refresh data
     useEffect(() => {

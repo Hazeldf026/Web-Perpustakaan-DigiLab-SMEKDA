@@ -7,7 +7,7 @@ const Favorit = () => {
 
     useEffect(() => {
         const fetchFavorites = async () => {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('user_token');
             try {
                 // Tembak API untuk ambil daftar favoritku
                 const response = await fetch("http://localhost:5000/api/favorites/me", {

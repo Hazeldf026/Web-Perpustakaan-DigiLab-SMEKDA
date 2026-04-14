@@ -11,11 +11,11 @@ const Discover = () => {
     const [activeCarouselIndex, setActiveCarouselIndex] = useState(0);
 
     useEffect(() => {
-        const userData = localStorage.getItem('user');
+        const userData = localStorage.getItem('user_data');
         if (userData) setUserName(JSON.parse(userData).name);
 
         const fetchBooks = async () => {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('user_token');
             try {
                 const response = await fetch("http://localhost:5000/api/books", {
                     headers: { "Authorization": `Bearer ${token}` }

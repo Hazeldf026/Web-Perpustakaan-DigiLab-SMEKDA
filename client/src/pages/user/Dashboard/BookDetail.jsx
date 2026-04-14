@@ -16,7 +16,7 @@ const BookDetail = () => {
     const [isWeekendError, setIsWeekendError] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('user_token');
 
     useEffect(() => {
         const fetchBookDetailAndFavoriteStatus = async () => {

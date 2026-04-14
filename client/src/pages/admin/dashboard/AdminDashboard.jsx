@@ -9,7 +9,7 @@ const AdminDashboard = () => {
     });
     const [isLoading, setIsLoading] = useState(true);
     const socket = useSocket();
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('admin_token');
 
     const fetchDashboardData = async () => {
         try {

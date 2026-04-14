@@ -8,7 +8,7 @@ const Request = () => {
 
     const [bookRequests, setBookRequests] = useState([]);
     const [passRequests, setPassRequests] = useState([]);
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('admin_token');
     const [registerRequests, setRegisterRequests] = useState([]);
 
     const fetchRequests = async () => {
