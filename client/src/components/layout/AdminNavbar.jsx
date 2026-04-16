@@ -9,12 +9,7 @@ const AdminNavbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [searchParams] = useSearchParams();
-
-    const handleLogout = () => {
-        localStorage.removeItem('admin_token');
-        localStorage.removeItem('admin_user');
-        navigate('/');
-    };
+    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
     const isActive = (path) => location.pathname === path;
 
@@ -58,65 +53,95 @@ const AdminNavbar = () => {
         if (location.pathname === '/admin/request') setRequestCount(0);
     }, [location.pathname]);
 
-    return (
-        <aside className="w-64 bg-green-800 text-white flex flex-col shadow-xl h-screen sticky top-0">
-            <div className="p-6 text-center border-b border-green-900">
-                <img src={LogoPutih} alt="logo digilib" className="w-24 mx-auto block my-2" />
-                <h2 className="text-2xl font-black tracking-wider">DigiLib</h2>
-                <p className="text-sm text-green-200">Admin Panel</p>
-            </div>
-            
-            <nav className="flex-1 px-4 py-6 space-y-2">
-                <Link 
-                    to="/admin/dashboard" 
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition ${isActive('/admin/dashboard') ? 'bg-white/20 text-white' : 'text-green-100 hover:bg-white/5'}`}
-                >
-                    <LayoutDashboard />
-                    Dashboard
-                </Link>
-                <Link 
-                    to="/admin/buku" 
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition ${isActive('/admin/buku') ? 'bg-white/20 text-white' : 'text-green-100 hover:bg-white/5'}`}
-                >
-                    <Book />
-                    Data Buku
-                </Link>
-                <Link 
-                    to="/admin/anggota" 
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition ${isActive('/admin/anggota') ? 'bg-white/20 text-white' : 'text-green-100 hover:bg-white/5'}`}
-                >
-                    <Users />
-                    Data Anggota
-                </Link>
-                <Link 
-                    to="/admin/transaksi" 
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition ${isActive('/admin/transaksi') ? 'bg-white/20 text-white' : 'text-green-100 hover:bg-white/5'}`}
-                >
-                    <Scale />
-                    Transaksi
-                </Link>
-                <Link 
-                    to="/admin/request?tab=buku" 
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition ${isActive('/admin/request') ? 'bg-white/20 text-white' : 'text-green-100 hover:bg-white/5'}`}
-                >
-                    <NotebookPen />
-                    Request
-                    {requestCount > 0 && (
-                        <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse shadow-md">
-                            {requestCount} Baru
-                        </span>
-                    )}
-                </Link>
-            </nav>
+    const executeLogout = () => {
+        localStorage.removeItem('user_token'); 
+        localStorage.removeItem('user_data');
+        setIsLogoutModalOpen(false); 
+        navigate('/');
+    };
 
-            <div className="p-4">
-                <button onClick={handleLogout} className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition shadow-lg">
-                    <LogOut size={18} />
-                    Logout
-                </button>
-            </div>
-            <Toaster />
-        </aside>
+    return (
+        <>
+            <aside className="w-64 bg-green-800 text-white flex flex-col shadow-xl h-screen sticky top-0">
+                <div className="p-6 text-center border-b border-green-900">
+                    <img src={LogoPutih} alt="logo digilib" className="w-24 mx-auto block my-2" />
+                    <h2 className="text-2xl font-black tracking-wider">DigiLib</h2>
+                    <p className="text-sm text-green-200">Admin Panel</p>
+                </div>
+                
+                <nav className="flex-1 px-4 py-6 space-y-2">
+                    <Link 
+                        to="/admin/dashboard" 
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition ${isActive('/admin/dashboard') ? 'bg-white/20 text-white' : 'text-green-100 hover:bg-white/5'}`}
+                    >
+                        <LayoutDashboard />
+                        Dashboard
+                    </Link>
+                    <Link 
+                        to="/admin/buku" 
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition ${isActive('/admin/buku') ? 'bg-white/20 text-white' : 'text-green-100 hover:bg-white/5'}`}
+                    >
+                        <Book />
+                        Data Buku
+                    </Link>
+                    <Link 
+                        to="/admin/anggota" 
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition ${isActive('/admin/anggota') ? 'bg-white/20 text-white' : 'text-green-100 hover:bg-white/5'}`}
+                    >
+                        <Users />
+                        Data Anggota
+                    </Link>
+                    <Link 
+                        to="/admin/transaksi" 
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition ${isActive('/admin/transaksi') ? 'bg-white/20 text-white' : 'text-green-100 hover:bg-white/5'}`}
+                    >
+                        <Scale />
+                        Transaksi
+                    </Link>
+                    <Link 
+                        to="/admin/request?tab=buku" 
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition ${isActive('/admin/request') ? 'bg-white/20 text-white' : 'text-green-100 hover:bg-white/5'}`}
+                    >
+                        <NotebookPen />
+                        Request
+                        {requestCount > 0 && (
+                            <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse shadow-md">
+                                {requestCount} Baru
+                            </span>
+                        )}
+                    </Link>
+                </nav>
+
+                <div className="p-4">
+                    <button onClick={() => setIsLogoutModalOpen(true)} className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition shadow-lg">
+                        <LogOut size={18} />
+                        Logout
+                    </button>
+                </div>
+                <Toaster />
+            </aside>
+
+            {isLogoutModalOpen && (
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-100 p-4 backdrop-blur-sm">
+                    <div className="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl transform transition-all text-center p-8">
+                        <div className="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <LogOut size={36} />
+                        </div>
+                        <h3 className="text-2xl font-black text-gray-800 mb-2">Keluar Aplikasi?</h3>
+                        <p className="text-gray-500 text-sm mb-8">Sesi kamu akan diakhiri dan kamu harus login kembali untuk mengakses perpustakaan.</p>
+                        
+                        <div className="flex gap-3">
+                            <button onClick={() => setIsLogoutModalOpen(false)} className="flex-1 py-3 bg-gray-100 text-gray-600 font-bold rounded-xl hover:bg-gray-200 transition">
+                                Batal
+                            </button>
+                            <button onClick={executeLogout} className="flex-1 py-3 bg-red-500 text-white font-bold rounded-xl shadow-lg hover:bg-red-600 transition">
+                                Ya, Keluar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 };
 
