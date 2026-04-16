@@ -3,8 +3,11 @@ import { toast } from 'react-hot-toast';
 import { useSocket } from '../../../context/SocketContext';
 import { getUserId } from '../../../utils/auth';
 import { BookMarked } from 'lucide-react';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 const UserTransaksi = () => {
+    useDocumentTitle("Transaksi");
+
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const token = localStorage.getItem('user_token');

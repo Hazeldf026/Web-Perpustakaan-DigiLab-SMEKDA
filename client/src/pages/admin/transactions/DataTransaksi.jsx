@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 const DataTransaksi = () => {
+    useDocumentTitle("Data Transaksi");
+
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 

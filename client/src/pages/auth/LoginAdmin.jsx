@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, ArrowRight } from 'lucide-react';
 import LogoJudul from "../../assets/LogoJudul.png"
 import Administration from "../../assets/administration.jpg"
-
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const LoginAdmin = () => {
+    useDocumentTitle("Masuk Admin");
+
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');

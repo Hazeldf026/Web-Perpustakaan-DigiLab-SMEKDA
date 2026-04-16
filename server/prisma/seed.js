@@ -1,8 +1,6 @@
 import { prisma } from  "../src/config/db.js";
 import bcrypt from 'bcryptjs'; // <--- IMPORT INI UNTUK HASHING PASSWORD
 
-const prisma = new PrismaClient();
-
 async function main() {
     // ==========================================
     // 1. DATA USER (ADMIN & MEMBER)

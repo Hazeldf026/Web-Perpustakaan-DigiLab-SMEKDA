@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 const GenreBooks = () => {
+    useDocumentTitle("Genre Buku");
+
     const { id } = useParams();
     const navigate = useNavigate();
     const [genreData, setGenreData] = useState(null);

@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useSocket } from '../../../context/SocketContext';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 const Request = () => {
+    useDocumentTitle("Request")
+
     const [searchParams, setSearchParams] = useSearchParams();
     const activeTab = searchParams.get('tab') || 'buku';
 

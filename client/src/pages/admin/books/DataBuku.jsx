@@ -1,8 +1,11 @@
 import { Plus, Star, X } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 const DataBuku = () => {
+    useDocumentTitle("Data Buku");
+
     const [books, setBooks] = useState([]);
     const [genres, setGenres] = useState([]);
     const [isLoading, setIsLoading] = useState(false);

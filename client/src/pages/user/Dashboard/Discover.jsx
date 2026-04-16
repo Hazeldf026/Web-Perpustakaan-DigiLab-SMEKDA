@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { Search } from 'lucide-react';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 const Discover = () => {
+    useDocumentTitle("Discover");
+
     const [userName, setUserName] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const [books, setBooks] = useState([]); 

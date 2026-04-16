@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import LogoJudul from "../../assets/LogoJudul.png"
-import Reading from "../../assets/reading.jpeg"
+import Reading from "../../assets/reading.jpeg";
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const LoginUser = () => {
+    useDocumentTitle("Masuk User");
+
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

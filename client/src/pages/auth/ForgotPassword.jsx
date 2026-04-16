@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const ForgotPassword = () => {
+    useDocumentTitle("Lupa Password");
+
     const [formData, setFormData] = useState({ identifier: '', newPassword: '', confirmPassword: '' });
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);

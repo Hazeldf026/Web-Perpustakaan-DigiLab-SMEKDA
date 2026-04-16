@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { ArrowLeft, Heart } from 'lucide-react';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 const BookDetail = () => {
+    useDocumentTitle("Detail Buku");
+
     const { id } = useParams();
     const navigate = useNavigate();
     const [book, setBook] = useState(null);

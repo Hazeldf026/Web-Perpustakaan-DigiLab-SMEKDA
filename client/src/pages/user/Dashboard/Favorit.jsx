@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { Heart } from 'lucide-react';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 const Favorit = () => {
+    useDocumentTitle("Favorit");
+
     const [favorites, setFavorites] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 

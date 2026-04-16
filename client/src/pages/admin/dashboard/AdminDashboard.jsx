@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useSocket } from '../../../context/SocketContext';
 import { LibraryBig, Users, BookOpen, Bell, ClockFading } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 const AdminDashboard = () => {
+    useDocumentTitle("Dashboard");
+
     const [data, setData] = useState({
         stats: { totalBooks: 0, totalMembers: 0, activeLoans: 0, totalPending: 0 },
         recentActivities: []

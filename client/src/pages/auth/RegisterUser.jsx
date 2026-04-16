@@ -3,8 +3,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import LogoJudul from "../../assets/LogoJudul.png";
 import Reading from "../../assets/reading.jpeg";
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const RegisterUser = () => {
+    useDocumentTitle("Daftar");
+
     const navigate = useNavigate();
     const [formData, setFormData] = useState({ identifier: '', name: '', email: '', password: '', confirmPassword: '' });
     const [isLoading, setIsLoading] = useState(false);

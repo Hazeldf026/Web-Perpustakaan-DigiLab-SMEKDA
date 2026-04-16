@@ -1,8 +1,11 @@
 import { UserPlus, X } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 const DataAnggota = () => {
+    useDocumentTitle("Data Anggota");
+
     const [members, setMembers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);

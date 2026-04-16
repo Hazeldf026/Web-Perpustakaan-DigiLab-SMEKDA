@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useSocket } from '../../context/SocketContext';
 import { Check, Hourglass, X } from 'lucide-react';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const WaitingApproval = () => {
+    useDocumentTitle("Tunggu Persetujuan");
+
     const { identifier } = useParams();
     const navigate = useNavigate();
     const socket = useSocket();

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Library } from 'lucide-react';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 const Genre = () => {
+    useDocumentTitle("Genre");
+
     const [genres, setGenres] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 

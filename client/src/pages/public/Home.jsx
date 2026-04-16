@@ -5,6 +5,7 @@ import FeatureSection from "../../components/fragments/FeatureSection"
 import Footer from "../../components/layout/Footer";
 
 const Home = () => {
+
     return (
         <div className="bg-gray-50 min-h-screen font-sans">
             {/* navbar */}
