@@ -97,7 +97,7 @@ const LoginAdmin = () => {
                 localStorage.setItem('user_data', JSON.stringify(data.user));
                 
                 toast.success(`Berhasil login via Kartu Admin! Halo, ${data.user.name} 👋`, { id: 'qr-login-success' });
-                navigate('/user/dashboard/discover');
+                navigate('/admin/dashboard');
             } else {
                 toast.error(data.message, { id: 'qr-login-error' });
                 isProcessingQRRef.current = false;
